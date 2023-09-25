@@ -13,7 +13,9 @@ java -jar target/demo-app-0.0.1-SNAPSHOT.jar
 ```
 
 * Environment Variables
+
 The application can connect to various databases by modifying environment variables.
+
 | No | Variables | Desc | Example |
 | -------- | -------- | -------- | -------- |
 | 1     | DB_DIALECT     | DB Dialect     |org.hibernate.dialect.PostgreSQLDialect|
@@ -24,22 +26,28 @@ The application can connect to various databases by modifying environment variab
 
 
 * Swagger UI
+
+A online API Document.
 ```
 http://localhost:8080/swagger-ui.html
 ```
 
-* Health Check Endpoint 
+* Health Check Endpoint
+
+A health check endpoint for this app. 
 ```
 http://localhost:8080/actuator/health
 ```
 
 * Build Image - Senario1 (Maven build in image)
+
 The generated image is quite large.
 ```bash=
 docker build -f Containerfile-fat -t demp-app:latest .
 ```
 
 * Build Image - Senario2 (COPY Artifact into image)
+
 The generated image is relatively lightweight.
 ```bash=
 docker build -f Containerfile -t demp-app:latest .
