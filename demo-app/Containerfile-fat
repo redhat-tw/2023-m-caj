@@ -2,10 +2,9 @@ FROM registry.access.redhat.com/ubi8/openjdk-11:latest
 ENV APP_HOME=/home/jboss APP_NAME=demo-app
 EXPOSE 8080
 WORKDIR ${APP_HOME}
-COPY ../${APP_NAME} ./
-WORKDIR ${APP_HOME}/${APP_NAME}
-RUN mvn clean package
+COPY ./ ./
 USER root
+RUN mvn clean package
 RUN chown jboss:root ${APP_HOME} && \
     chmod -R 755 ${APP_HOME}
 USER jboss
