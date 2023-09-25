@@ -1,0 +1,1 @@
+INSERT INTO MESSAGE(MESSAGE_DATA) VALUES ('Hello, welcome to labs!');
