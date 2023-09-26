@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vote-ingress
+spec:
+  rules:
+    - host: vote-${STUDENT_ID}-ing.apps.cluster-r7w8k.r7w8k.sandbox930.opentlc.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: vote
+                port:
+                  number: 5000
