@@ -27,6 +27,7 @@ $ kubectl create -f frontend/
 ```
 
 5. Access the voting application
+
 Voting Page
 ```
 http://vote-${STUDENT_ID}-ing.apps.cluster-r7w8k.r7w8k.sandbox930.opentlc.com
@@ -34,4 +35,14 @@ http://vote-${STUDENT_ID}-ing.apps.cluster-r7w8k.r7w8k.sandbox930.opentlc.com
 Voting Result Page
 ```
 http://result-${STUDENT_ID}-ing.apps.cluster-r7w8k.r7w8k.sandbox930.opentlc.com
+```
+
+## Cleanup
+To remove the voting application, execute the following commands:
+```
+$ cd 2023-m-caj/k8s-voting-app
+$ kubectl delete -f frontend/
+$ kubectl delete -f backend/
+$ kubectl delete -f redis/
+$ kubectl delete -f db/
 ```
