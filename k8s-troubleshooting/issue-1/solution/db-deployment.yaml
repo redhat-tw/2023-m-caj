@@ -15,7 +15,7 @@ spec:
         app: db
     spec:
       containers:
-      - image: postgres:15-alpine
+      - image: quay.io/rhgps/postgres:15-alpine
         name: postgres
         env:
         - name: POSTGRES_USER

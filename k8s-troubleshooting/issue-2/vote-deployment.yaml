@@ -15,7 +15,7 @@ spec:
         app: vote
     spec:
       containers:
-      - image: dockersamples/examplevotingapp_vote123
+      - image: quay.io/rhgps/votingapp_vote123
         name: vote
         ports:
         - containerPort: 80
