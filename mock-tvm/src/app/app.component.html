@@ -1,0 +1,231 @@
+<div class="grid">
+  <div class="col-12 text-center bg-primary">
+    <h2>Container Adoption Journey - Mock TVM {{version}}</h2>
+  </div>
+  <div class="col-12 body">
+    <div class="grid">
+      <!-- 選擇服務類別 -->
+      <div class="col-12">
+        <h3><p-badge></p-badge> 選擇服務類別</h3>
+      </div>
+      <div class="col-4">
+        <label>服務類別: </label>
+        <p-dropdown [options]="serviceTypes" optionValue="code"
+          [(ngModel)]="this.appService.reservationRequest.serviceType" optionLabel="name" (onChange)="createForm()"></p-dropdown>
+      </div>
+
+      <!-- 訂票功能 -->
+      <ng-container *ngIf="this.appService.reservationRequest.serviceType!='3'">
+        <div class="col-4">
+          <label>單程/去回: </label>
+          <p-dropdown [options]="roundTrip" optionValue="code"
+            [(ngModel)]="this.appService.reservationRequest.roundTrip" optionLabel="name" (onChange)="calculateReservationPrice()"></p-dropdown>
+        </div>
+
+        <!-- 選擇起迄站 -->
+        <div class="col-12">
+          <h3><p-badge></p-badge> 選擇起迄站</h3>
+        </div>
+
+        <!-- 選擇起起站 -->
+        <div class="col-4">
+          <label>起站: </label>
+          <p-dropdown [options]="departures" optionValue="id" [(ngModel)]="this.appService.reservationRequest.departrue"
+            optionLabel="name" (onChange)="createDestList();calculateReservationPrice();"></p-dropdown>
+        </div>
+
+        <!-- 選擇起迄站 -->
+        <div class="col-4">
+          <label>迄站: </label>
+          <p-dropdown [options]="destinations" optionValue="id"
+            [(ngModel)]="this.appService.reservationRequest.destination" optionLabel="name" (onChange)="calculateReservationPrice()"></p-dropdown>
+        </div>
+
+        <!-- 選擇乘客人數 -->
+        <div class="col-12">
+          <h3><p-badge></p-badge> 選擇乘客人數</h3>
+        </div>
+        <div class="col-12">
+          <p-table [value]="passengers">
+            <ng-template pTemplate="header">
+              <tr>
+                <th>票種</th>
+                <th>人數</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-passanger let-i="rowIndex">
+              <tr>
+                <td>{{ passanger.name }}</td>
+                <td>
+                  <p-inputNumber [(ngModel)]="this.appService.reservationRequest.passengers[i].amt" inputId="minmax"
+                    mode="decimal" [min]="0" [max]="3" (onInput)="calculateReservationPrice()">
+                  </p-inputNumber>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+
+        <!-- 選擇車次 -->
+        <ng-container *ngIf="this.appService.reservationRequest.serviceType=='2'">
+          <div class="col-6" >
+            <h3>
+              <p-badge></p-badge>去程車次
+            </h3>
+          </div>
+          <div class="col-6">
+            <h3 *ngIf="this.appService.reservationRequest.roundTrip=='2'">
+              <p-badge></p-badge>回程車次
+            </h3>
+          </div>
+
+          <!-- 去程車次 -->
+          <div class="col-6">
+            <p-table [value]="outbounds" [tableStyle]="{ 'min-width': '50rem' }">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>選擇車次</th>
+                  <th>車次號碼</th>
+                  <th>出發時間</th>
+                  <th>抵達時間</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-outbound>
+                <tr>
+                  <td>
+                    <p-radioButton name="outbound" [value]=outbound
+                      [(ngModel)]="this.appService.reservationRequest.outbound" inputId="outbound"
+                      (onClick)="setDefaultClassCode(this.appService.reservationRequest.outbound)"></p-radioButton>
+                  </td>
+                  <td>{{ outbound.trainNo }}</td>
+                  <td>{{ outbound.departureTime }}</td>
+                  <td>{{ outbound.arrivalTime }}</td>
+                </tr>
+              </ng-template>
+            </p-table>
+            <p-selectButton [options]="stateOptions" [(ngModel)]="this.appService.reservationRequest.outbound.classCode"
+              optionLabel="label" optionValue="value" (onChange)="calculateReservationPrice()">
+            </p-selectButton>
+          </div>
+
+
+          <!-- 回程車次 -->
+          <div class="col-6" *ngIf="this.appService.reservationRequest.roundTrip=='2'">
+            <p-table [value]="inbounds" [tableStyle]="{ 'min-width': '50rem' }">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>選擇車次</th>
+                  <th>車次號碼</th>
+                  <th>出發時間</th>
+                  <th>抵達時間</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-inbound>
+                <tr>
+                  <td>
+                    <p-radioButton name="inbound" [value]=inbound
+                      [(ngModel)]="this.appService.reservationRequest.inbound"
+                      (onClick)="setDefaultClassCode(this.appService.reservationRequest.inbound)"></p-radioButton>
+                  </td>
+                  <td>{{ inbound.trainNo }}</td>
+                  <td>{{ inbound.departureTime }}</td>
+                  <td>{{ inbound.arrivalTime }}</td>
+                </tr>
+              </ng-template>
+            </p-table>
+            <p-selectButton [options]="stateOptions" [(ngModel)]="this.appService.reservationRequest.inbound.classCode"
+              optionLabel="label" optionValue="value" (onChange)="calculateReservationPrice()"></p-selectButton>
+          </div>
+        </ng-container>
+
+        <!-- 輸入會員資訊 -->
+        <div class="col-12">
+          <h3><p-badge></p-badge> 輸入會員資訊</h3>
+        </div>
+        <div class="col-4">
+          <label>會員身份: </label>
+          <p-dropdown [options]="memberTypes" optionValue="code"
+            [(ngModel)]="this.appService.reservationRequest.memberType" optionLabel="name"></p-dropdown>
+        </div>
+
+        <div class="col-4" *ngIf="this.appService.reservationRequest.memberType=='2'">
+          <label>企業統編: </label>
+          <input type="text" pInputText [(ngModel)]="this.appService.reservationRequest.memberId" />
+        </div>
+
+        <div class="col-4" *ngIf="this.appService.reservationRequest.memberType=='3'">
+          <label>TGO帳號: </label>
+          <input type="text" pInputText [(ngModel)]="this.appService.reservationRequest.memberId" />
+        </div>
+
+        <!-- 付款方式 -->
+        <div class="col-12">
+          <h3><p-badge></p-badge> 選擇付款方式</h3>
+        </div>
+        <div class="col-4">
+          <label>付款方式: </label>
+          <p-dropdown [options]="paymentMethods" optionValue="code"
+            [(ngModel)]="this.appService.reservationRequest.paymentMethod" optionLabel="name"></p-dropdown>
+        </div>
+
+        <div class="col-4">
+          <label>現金: </label>
+          <p-inputNumber [disabled]="true" [(ngModel)]="this.appService.reservationRequest.paymentAmt" inputId="minmax" mode="decimal"
+            [min]="0" [max]="50000">
+          </p-inputNumber>
+          <p>應付金額: {{this.appService.reservationRequest.paymentAmt}}</p>
+        </div>
+        <div class="col-12">
+          <p-button label="送出" (onClick)="reservation()"></p-button>
+        </div>
+      </ng-container>
+
+      <!-- 取票功能 -->
+      <ng-container *ngIf="this.appService.reservationRequest.serviceType=='3'">
+        <!-- 取票 -->
+        <div class="col-12">
+          <h3><p-badge></p-badge> 取票</h3>
+        </div>
+        <div class="col-12">
+          <label>訂位代號: </label>
+          <input type="text" pInputText [(ngModel)]="this.appService.ticketQueryRequest.pnr" /> 	&nbsp;
+          <p-button label="送出" (onClick)="reservationRecord()"></p-button>
+        </div>
+        <!-- 車票-->
+        <div class="col-4" *ngFor="let item of tickets">
+          <ng-container *ngIf="item.classCode==='K'">
+            <p-card header="{{this.departures[item.departure-1].name}} → {{this.departures[item.destination-1].name}} ">
+              <p>日期 : {{ today | date:'yyyy-MM-dd' }} </p>
+              <p>自由座 (限當日使用) </p>
+            </p-card>
+          </ng-container>
+          <ng-container *ngIf="item.classCode!=='K'">
+            <p-card header="{{this.departures[item.departure-1].name}} ({{item.departureTime | slice:11:16}}) → {{this.departures[item.destination-1].name}} ({{item.arrivalTime| slice:11:16}})">
+              <p>日期 : {{item.departureTime | slice:0:10}} </p>
+              <p>車次 : {{item.trainNo}}</p>
+              <p *ngIf="item.classCode==='Y'">對號座: {{item.car}} 標準車廂 {{item.seat}} </p>
+              <p *ngIf="item.classCode==='J'">對號座: {{item.car}} 商務車廂 {{item.seat}} </p>
+            </p-card>
+          </ng-container>
+        </div>
+      </ng-container>
+
+      <!--
+      For Debug
+      {{tickets |json}}
+      {{this.appService.reservationRequest |json}}
+      -->
+
+
+    </div>
+  </div>
+  <div class="col-12 bg-primary footer">
+    <div>CAJ 鐵路股份有限公司 © CAJ Rail Company. All Rights Reserved.</div>
+  </div>
+</div>
+
+<p-dialog header="訂位代號" [(visible)]="visible" [style]="{width: '50vw'}">
+  <p>
+    {{this.appService.ticketQueryRequest.pnr}}
+  </p>
+</p-dialog>

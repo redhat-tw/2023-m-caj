@@ -1,0 +1,12 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: mock-tvm
+spec:
+  host: mock-tvm-${STUDENT_ID}.${DOMAIN}
+  to:
+    kind: Service
+    name: mock-tvm
+    weight: 100
+  port:
+    targetPort: 8080
