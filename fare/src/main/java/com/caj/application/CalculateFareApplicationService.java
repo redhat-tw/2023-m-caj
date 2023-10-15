@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.caj.domain.fare.FareDo;
 import com.caj.domain.fare.FareService;
-import com.caj.domain.masterfile.PassengerTypeService;
-import com.caj.domain.masterfile.StationService;
+import com.caj.infra.client.rest.PassengerTypeService;
+import com.caj.infra.client.rest.StationService;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -1,12 +1,12 @@
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: mono-backend
+  name: m-caj-fare
 spec:
-  host: mono-backend-${STUDENT_ID}.${DOMAIN}
+  host: m-caj-fare-${STUDENT_ID}.${DOMAIN}
   to:
     kind: Service
-    name: mono-backend
+    name: m-caj-fare
     weight: 100
   port:
     targetPort: 8080

@@ -1,7 +1,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: mono-backend
+  name: m-caj-reservation
 spec:
   endpoints:
     - interval: 10s
@@ -10,6 +10,6 @@ spec:
       scheme: http
   selector:
     matchLabels:
-      app: mono-backend
+      app: m-caj-reservation
   targetLabels:
     - app

@@ -1,13 +1,13 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: mono-backend
+  name: m-caj-reservation
   labels:
-    app: mono-backend
-    service: mono-backend
+    app: m-caj-reservation
+    service: m-caj-reservation
 spec:
   selector:
-    app: mono-backend
+    app: m-caj-reservation
   ports:
     - protocol: TCP
       port: 8080

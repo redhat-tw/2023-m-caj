@@ -1,15 +1,15 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-  name: mono-backend-alert
+  name: m-caj-schedule-alert
 spec:
   groups:
-    - name: mono-backend
+    - name: m-caj-schedule
       rules:
         - alert: TargetDownAlert
           annotations:
             summary: '{{ $labels.app }} in {{ $labels.namespace }} namespace is down'
-          expr: 'up{app="mono-backend",namespace="speaker01"} == 0'
+          expr: 'up{app="m-caj-schedule",namespace="speaker01"} == 0'
           for: 5s
           labels:
             severity: Critical
@@ -19,7 +19,7 @@ spec:
               {{ $labels.app }} in {{ $labels.namespace }} cup is greater than
               1%
           expr: >-
-            process_cpu_usage{app="mono-backend",namespace="speaker01"} >
+            process_cpu_usage{app="m-caj-schedule",namespace="speaker01"} >
             0.01
           for: 5s
           labels:

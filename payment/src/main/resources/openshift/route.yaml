@@ -1,0 +1,12 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: m-caj-payment
+spec:
+  host: m-caj-payment-${STUDENT_ID}.${DOMAIN}
+  to:
+    kind: Service
+    name: m-caj-payment
+    weight: 100
+  port:
+    targetPort: 8080

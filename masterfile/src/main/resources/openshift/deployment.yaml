@@ -1,25 +1,25 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: mono-backend
+  name: m-caj-masterfile
   labels:
-    app: mono-backend
+    app: m-caj-masterfile
     version: v1
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mono-backend
+      app: m-caj-masterfile
       version: v1
   template:
     metadata:
       labels:
-        app: mono-backend
+        app: m-caj-masterfile
         version: v1
     spec:
       containers:
-        - name: mono-backend
-          image: 'quay.io/ske/mono-backend:latest'
+        - name: m-caj-masterfile
+          image: 'quay.io/ske/m-caj-masterfile:latest'
           ports:
             - containerPort: 8080
               protocol: TCP

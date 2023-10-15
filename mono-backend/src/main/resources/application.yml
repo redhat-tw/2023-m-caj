@@ -1,6 +1,6 @@
 spring:
   application:
-    name: mono-backend 
+    name: m-caj-mono-backend
   jpa:
     database-platform: ${DB_DIALECT:org.hibernate.dialect.H2Dialect}
     defer-datasource-initialization: true

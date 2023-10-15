@@ -3,11 +3,11 @@ package com.caj.application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.caj.domain.membership.MembershipService;
-import com.caj.domain.payment.PaymentService;
 import com.caj.domain.reservation.ReservationDo;
 import com.caj.domain.reservation.ReservationService;
 import com.caj.domain.ticket.TicketService;
+import com.caj.infra.client.rest.MembershipService;
+import com.caj.infra.client.rest.PaymentService;
 
 @Service
 public class ReservationApplicationService {

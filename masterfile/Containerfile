@@ -1,5 +1,5 @@
 FROM registry.access.redhat.com/ubi8/openjdk-17:latest
-ENV APP_HOME=/home/jboss APP_NAME=mono-backend
+ENV APP_HOME=/home/jboss APP_NAME=masterfile
 EXPOSE 8080
 WORKDIR ${APP_HOME}
 COPY ./target/${APP_NAME}-0.0.1-SNAPSHOT.jar ./app.jar

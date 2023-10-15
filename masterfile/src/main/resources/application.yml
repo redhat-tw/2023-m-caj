@@ -1,6 +1,8 @@
+server:
+  port: 8080
 spring:
   application:
-    name: mono-backend 
+    name: m-caj-masterfile 
   jpa:
     database-platform: ${DB_DIALECT:org.hibernate.dialect.H2Dialect}
     defer-datasource-initialization: true
@@ -49,9 +51,6 @@ springdoc:
     path: /api-docs
 caj:
   release-no: ${RELEASE_NO:1.0.0}
-  fare:
-    business-class-rate: ${BUSINESS_CLASS_RATE:1.5}
-    price-per-mile: ${PRICE_PER_MILE:3}
   masterfile:
     is-fault: ${IS_FAULT:false}  
     
