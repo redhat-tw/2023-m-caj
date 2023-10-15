@@ -1,0 +1,9 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: db-config
+data:
+  DB_DIALECT: org.hibernate.dialect.H2Dialect
+  DB_DRIVER: org.h2.Driver
+  DB_URL: 'jdbc:h2:mem:lab;DB_CLOSE_DELAY=-1'
+  DB_USER: sa
