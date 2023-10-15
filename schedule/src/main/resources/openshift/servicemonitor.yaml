@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: mono-backend
+spec:
+  endpoints:
+    - interval: 10s
+      path: /actuator/prometheus
+      port: http
+      scheme: http
+  selector:
+    matchLabels:
+      app: mono-backend
+  targetLabels:
+    - app

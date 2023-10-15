@@ -1,0 +1,57 @@
+spring:
+  application:
+    name: mono-backend 
+  jpa:
+    database-platform: ${DB_DIALECT:org.hibernate.dialect.H2Dialect}
+    defer-datasource-initialization: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: ${DB_URL:jdbc:h2:mem:lab;DB_CLOSE_DELAY=-1}
+    username: ${DB_USER:sa}
+    password: ${DB_PXD:sa}
+    driver-class-name: ${DB_DRIVER:org.h2.Driver}
+    hikari:
+      connection-timeout: 30000
+      idleTimeout: 600000
+      maxLifetime: 1800000
+      minimum-idle: 1
+      maximum-pool-size: 10
+      auto-commit: true
+  h2:
+    console:
+      enabled: true
+      path: /h2
+      settings:
+        web-allow-others: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+        - health
+        - info
+        - prometheus
+  otlp:
+    tracing:
+      endpoint: ${JAEGER_URI:http://jaeger-collector.istio-system.svc:4317}
+  tracing:
+    sampling: 
+      probability: 1.0
+logging:
+  pattern:
+    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api-docs
+caj:
+  release-no: ${RELEASE_NO:1.0.0}
+  fare:
+    business-class-rate: ${BUSINESS_CLASS_RATE:1.5}
+    price-per-mile: ${PRICE_PER_MILE:3}
+  masterfile:
+    is-fault: ${IS_FAULT:false}  
+    
