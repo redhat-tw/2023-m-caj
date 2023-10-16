@@ -3,7 +3,7 @@ apiVersion: route.openshift.io/v1
 metadata:
   name: m-caj-schedule
 spec:
-  host: m-caj-schedule-${STUDENT_ID}.${DOMAIN}
+  host: m-caj-schedule-${STUDENT_ID}.${BASE_DOMAIN}
   to:
     kind: Service
     name: m-caj-schedule

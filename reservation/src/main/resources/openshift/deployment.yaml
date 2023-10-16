@@ -49,3 +49,11 @@ spec:
                 secretKeyRef:
                   name: db-secret
                   key: DB_PXD
+            - name: MASTERFILE_URL
+              value: ${MASTERFILE_URL}
+            - name: FARE_URL
+              value: ${FARE_URL}
+            - name: PAYMENT_URL
+              value: ${PAYMENT_URL}
+            - name: MEMBERSHIP_URL
+              value: ${MEMBERSHIP_URL}
