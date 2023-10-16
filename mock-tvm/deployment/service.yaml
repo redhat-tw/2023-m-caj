@@ -1,13 +1,13 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: mock-tvm
+  name: m-caj-mock-tvm
   labels:
-    app: mock-tvm
-    service: mock-tvm
+    app: m-caj-mock-tvm
+    service: m-caj-mock-tvm
 spec:
   selector:
-    app: mock-tvm
+    app: m-caj-mock-tvm
   ports:
     - protocol: TCP
       port: 8080

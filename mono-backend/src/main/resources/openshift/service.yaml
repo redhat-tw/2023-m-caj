@@ -1,13 +1,13 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: mono-backend
+  name: m-caj-mono-backend
   labels:
-    app: mono-backend
-    service: mono-backend
+    app: m-caj-mono-backend
+    service: m-caj-mono-backend
 spec:
   selector:
-    app: mono-backend
+    app: m-caj-mono-backend
   ports:
     - protocol: TCP
       port: 8080

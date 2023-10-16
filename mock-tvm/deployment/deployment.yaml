@@ -1,20 +1,20 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: mock-tvm
+  name: m-caj-mock-tvm
   labels:
-    app: mock-tvm
+    app: m-caj-mock-tvm
     version: v1
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mock-tvm
+      app: m-caj-mock-tvm
       version: v1
   template:
     metadata:
       labels:
-        app: mock-tvm
+        app: m-caj-mock-tvm
         version: v1
     spec:
       volumes:
@@ -23,8 +23,8 @@ spec:
             name: web-config
             defaultMode: 420
       containers:
-        - name: mock-tvm
-          image: 'quay.io/ske/mock-tvm:latest'
+        - name: m-caj-mock-tvm
+          image: 'quay.io/ske/m-caj-mock-tvm:latest'
           ports:
             - containerPort: 8080
               protocol: TCP

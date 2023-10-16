@@ -4,4 +4,4 @@ metadata:
   name: web-config
 data:
   config.json: >
-    {"masterfileURL":"","reservationURL":"",scheduleURL:""}
+    {"masterfileURL":"","reservationURL":"","scheduleURL":""}
