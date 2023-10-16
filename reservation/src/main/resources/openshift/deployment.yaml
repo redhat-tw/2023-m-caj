@@ -50,10 +50,10 @@ spec:
                   name: db-secret
                   key: DB_PXD
             - name: MASTERFILE_URL
-              value: ${MASTERFILE_URL}
+              value: http://m-caj-masterfile:8080
             - name: FARE_URL
-              value: ${FARE_URL}
+              value: http://m-caj-fare:8080
             - name: PAYMENT_URL
-              value: ${PAYMENT_URL}
+              value: http://m-caj-payment:8080
             - name: MEMBERSHIP_URL
-              value: ${MEMBERSHIP_URL}
+              value: http://m-caj-payment:8080

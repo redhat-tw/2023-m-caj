@@ -4,4 +4,4 @@ metadata:
   name: web-config
 data:
   config.json: >
-    {"masterfileURL":"","reservationURL":"","scheduleURL":""}
+    {"masterfileURL":"https://m-caj-masterfile-${STUDENT_ID}.apps.cluster-zghzl.zghzl.sandbox852.opentlc.com","reservationURL":"https://m-caj-reservation-${STUDENT_ID}.apps.cluster-zghzl.zghzl.sandbox852.opentlc.com","scheduleURL":"https://m-caj-schedule-${STUDENT_ID}.apps.cluster-zghzl.zghzl.sandbox852.opentlc.com"}

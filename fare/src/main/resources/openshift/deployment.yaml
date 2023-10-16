@@ -50,4 +50,4 @@ spec:
                   name: db-secret
                   key: DB_PXD
             - name: MASTERFILE_URL
-              value: ${MASTERFILE_URL}
+              value: http://m-caj-masterfile:8080

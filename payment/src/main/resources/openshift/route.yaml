@@ -3,10 +3,14 @@ apiVersion: route.openshift.io/v1
 metadata:
   name: m-caj-payment
 spec:
-  host: m-caj-payment-${STUDENT_ID}.${BASE_DOMAIN}
+  host: m-caj-payment-${STUDENT_ID}.apps.cluster-zghzl.zghzl.sandbox852.opentlc.com
   to:
     kind: Service
     name: m-caj-payment
     weight: 100
   port:
     targetPort: 8080
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Allow
+  wildcardPolicy: None
