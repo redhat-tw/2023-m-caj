@@ -1,0 +1,36 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: m-caj-mock-tvm-tls
+  labels:
+    app: m-caj-mock-tvm-tls
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: m-caj-mock-tvm-tls
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: m-caj-mock-tvm-tls
+        version: v1
+    spec:
+      volumes:
+        - name: config-volume
+          configMap:
+            name: web-config-tls
+            defaultMode: 420
+      containers:
+        - name: m-caj-mock-tvm-tls
+          image: '{{ .Values.image.repository }}/m-caj-mock-tvm:tls'
+          ports:
+            - name: http
+              containerPort: 8443
+              protocol: TCP
+          resources: {}
+          volumeMounts:
+            - name: config-volume
+              mountPath: /opt/app-root/src/assets/config.json
+              subPath: config.json

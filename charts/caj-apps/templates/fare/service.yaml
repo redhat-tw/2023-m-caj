@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: m-caj-fare
+  labels:
+    app: m-caj-fare
+    service: m-caj-fare
+spec:
+  selector:
+    app: m-caj-fare
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      name: http

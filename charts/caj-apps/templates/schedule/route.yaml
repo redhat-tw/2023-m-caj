@@ -1,0 +1,16 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: m-caj-schedule
+spec:
+  host: m-caj-schedule-{{ .Values.project }}.{{ .Values.clusterAppsDomain }}
+  to:
+    kind: Service
+    name: m-caj-schedule
+    weight: 100
+  port:
+    targetPort: 8080
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Allow
+  wildcardPolicy: None

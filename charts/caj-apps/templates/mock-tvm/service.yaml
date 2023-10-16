@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: m-caj-mock-tvm
+  labels:
+    app: m-caj-mock-tvm
+    service: m-caj-mock-tvm
+spec:
+  selector:
+    app: m-caj-mock-tvm
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      name: http

@@ -1,0 +1,9 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: db-config
+data:
+  DB_DIALECT: {{ .Values.db.dialect }}
+  DB_DRIVER: {{ .Values.db.driver }}
+  DB_URL: {{ .Values.db.url }}
+  DB_USER: {{ .Values.db.user }}

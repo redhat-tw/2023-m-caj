@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: m-caj-masterfile
+  labels:
+    app: m-caj-masterfile
+    service: m-caj-masterfile
+spec:
+  selector:
+    app: m-caj-masterfile
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      name: http

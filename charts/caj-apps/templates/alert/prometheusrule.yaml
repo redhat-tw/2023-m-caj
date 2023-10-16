@@ -1,0 +1,27 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: '{{ .Values.project }}-alert'
+spec:
+  groups:
+    - name: m-caj-alert
+      rules:
+        - alert: TargetDownAlert
+          annotations:
+            summary: >- 
+               pod in {{ .Values.project }} namespace is down"
+          expr: 'up{namespace="{{ .Values.project }}"} == 0'
+          for: 5s
+          labels:
+            severity: Critical
+        - alert: CpuUsageAlert
+          annotations:
+            summary: >-
+              pod in {{ .Values.project }} cup is greater than
+              50%
+          expr: >-
+            process_cpu_usage{app="m-caj-fare",namespace="{{ .Values.project }}"} >
+            0.50
+          for: 5s
+          labels:
+            severity: Warning

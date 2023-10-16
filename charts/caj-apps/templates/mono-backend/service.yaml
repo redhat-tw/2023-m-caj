@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: m-caj-mono-backend
+  labels:
+    app: m-caj-mono-backend
+    service: m-caj-mono-backend
+spec:
+  selector:
+    app: m-caj-mono-backend
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      name: http

@@ -1,0 +1,15 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: m-caj-mock-tvm-tls
+spec:
+  host: m-caj-mock-tvm-tls-{{ .Values.project }}.{{ .Values.clusterAppsDomain }}
+  to:
+    kind: Service
+    name: m-caj-mock-tvm-tls
+    weight: 100
+  port:
+    targetPort: http
+  tls:
+    termination: passthrough
+  wildcardPolicy: None

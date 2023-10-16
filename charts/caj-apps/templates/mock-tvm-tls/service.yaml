@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: m-caj-mock-tvm-tls
+  labels:
+    app: m-caj-mock-tvm-tls
+    service: m-caj-mock-tvm-tls
+spec:
+  selector:
+    app: m-caj-mock-tvm-tls
+  ports:
+    - protocol: TCP
+      port: 8443
+      targetPort: 8443
+      name: http

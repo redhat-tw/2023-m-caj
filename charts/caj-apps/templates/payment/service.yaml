@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: m-caj-payment
+  labels:
+    app: m-caj-payment
+    service: m-caj-payment
+spec:
+  selector:
+    app: m-caj-payment
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      name: http

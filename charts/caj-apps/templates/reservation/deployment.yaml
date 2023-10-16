@@ -1,0 +1,73 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: m-caj-reservation
+  labels:
+    app: m-caj-reservation
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: m-caj-reservation
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: m-caj-reservation
+        version: v1
+    spec:
+      containers:
+        - name: m-caj-reservation
+          image: '{{ .Values.image.repository }}/m-caj-reservation:latest'
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: DB_DIALECT
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: DB_DIALECT
+            - name: DB_DRIVER
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: DB_DRIVER
+            - name: DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: DB_URL
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: DB_USER
+            - name: DB_PXD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: DB_PXD
+            - name: MASTERFILE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: reseravation-config
+                  key: MASTERFILE_URL
+            - name: FARE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: reseravation-config
+                  key: FARE_URL
+            - name: PAYMENT_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: reseravation-config
+                  key: PAYMENT_URL
+            - name: MEMBERSHIP_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: reseravation-config
+                  key: MEMBERSHIP_URL
+                  

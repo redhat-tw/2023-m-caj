@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: m-caj-reservation
+  labels:
+    app: m-caj-reservation
+    service: m-caj-reservation
+spec:
+  selector:
+    app: m-caj-reservation
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      name: http

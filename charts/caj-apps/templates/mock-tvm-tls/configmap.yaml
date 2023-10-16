@@ -1,0 +1,7 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: web-config-tls
+data:
+  config.json: >
+    {"masterfileURL":"https://m-caj-masterfile-{{ .Values.project }}.{{ .Values.clusterAppsDomain }}","reservationURL":"https://m-caj-reservation-{{ .Values.project }}.{{ .Values.clusterAppsDomain }}","scheduleURL":"https://m-caj-schedule-{{ .Values.project }}.{{ .Values.clusterAppsDomain }}"}

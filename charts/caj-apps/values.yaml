@@ -1,0 +1,23 @@
+# Default values for msa-caj-apps.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Basic Config
+studentId: speaker01
+project: speaker01-green
+clusterAppsDomain: apps.cluster-zghzl.zghzl.sandbox852.opentlc.com
+image:
+  repository: quay.io/ske
+# Service Config
+masterfileURL: http://m-caj-masterfile:8080
+fareURL: http://m-caj-fare:8080
+paymentURL: http://m-caj-payment:8080
+membershipURL: http://m-caj-payment:8080
+# DB Config
+db:
+  dialect: org.hibernate.dialect.H2Dialect
+  driver: org.h2.Driver
+  url: 'jdbc:h2:mem:lab;DB_CLOSE_DELAY=-1'
+  user: sa
+  pxd: c2E=
+
