@@ -1,5 +1,5 @@
 # 前端服務
-CAJ 使用之前端
+CAJ 使用之前端服務
 
 ## Image 位置
 ```
@@ -34,12 +34,12 @@ ng serve
 ## 容器化
 1. 建置容器 
 ```bash=
-# http
+# http 8080 port
 podman build -f Containerfile -t m-caj-mock-tvm:latest .
 ```
 
 ```bash=
-# https 自簽憑證
+# https 8443 port 含簽謙憑證 
 podman build -f Containerfile-tls -t m-caj-mock-tvm:latest .
 ```
 

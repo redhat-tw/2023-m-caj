@@ -21,7 +21,8 @@ spec:
         - name: m-caj-reservation
           image: 'quay.io/ske/m-caj-reservation:latest'
           ports:
-            - containerPort: 8080
+            - name: http
+              containerPort: 8080
               protocol: TCP
           env:
             - name: DB_DIALECT
@@ -50,10 +51,22 @@ spec:
                   name: db-secret
                   key: DB_PXD
             - name: MASTERFILE_URL
-              value: http://m-caj-masterfile:8080
+              valueFrom:
+                configMapKeyRef:
+                  name: reservation-config
+                  key: MASTERFILE_URL
             - name: FARE_URL
-              value: http://m-caj-fare:8080
+              valueFrom:
+                configMapKeyRef:
+                  name: reservation-config
+                  key: FARE_URL
             - name: PAYMENT_URL
-              value: http://m-caj-payment:8080
+              valueFrom:
+                configMapKeyRef:
+                  name: reservation-config
+                  key: PAYMENT_URL
             - name: MEMBERSHIP_URL
-              value: http://m-caj-payment:8080
+              valueFrom:
+                configMapKeyRef:
+                  name: reservation-config
+                  key: MEMBERSHIP_URL

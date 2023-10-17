@@ -21,7 +21,8 @@ spec:
         - name: m-caj-fare
           image: 'quay.io/ske/m-caj-fare:latest'
           ports:
-            - containerPort: 8080
+            - name: http
+              containerPort: 8080
               protocol: TCP
           env:
             - name: DB_DIALECT

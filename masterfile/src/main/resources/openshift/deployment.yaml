@@ -21,7 +21,8 @@ spec:
         - name: m-caj-masterfile
           image: 'quay.io/ske/m-caj-masterfile:latest'
           ports:
-            - containerPort: 8080
+            - name: http
+              containerPort: 8080
               protocol: TCP
           env:
             - name: DB_DIALECT

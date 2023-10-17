@@ -7,3 +7,13 @@ data:
   DB_DRIVER: org.h2.Driver
   DB_URL: 'jdbc:h2:mem:lab;DB_CLOSE_DELAY=-1'
   DB_USER: sa
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: reservation-config
+data:
+  MASTERFILE_URL: http://m-caj-masterfile:8080
+  FARE_URL: http://m-caj-fare:8080
+  PAYMENT_URL: http://m-caj-payment:8080
+  MEMBERSHIP_URL: http://m-caj-payment:8080
