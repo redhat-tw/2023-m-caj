@@ -39,13 +39,19 @@ podman build -f Containerfile -t m-caj-mock-tvm:latest .
 ```
 
 ```bash=
-# https 8443 port 含簽謙憑證 
-podman build -f Containerfile-tls -t m-caj-mock-tvm:latest .
+# https 8443 port 含字簽憑證 
+podman build -f Containerfile-tls -t m-caj-mock-tvm:tls .
 ```
 
 2. 啟動容器
 ```bash=
+# http 8080 port
 podman run -p 8080:8080 m-caj-mock-tvm:latest
+```
+
+```bash=
+# https 8443 port 含自簽憑證
+podman run -p 8443:8443 m-caj-mock-tvm:tls
 ```
 
 ## 佈署於 OpenShift
