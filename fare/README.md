@@ -18,7 +18,7 @@ quay.io/ske/m-caj-fare
 | 6     | JAEGER_URI     | Jaeger 位置     |http://jaeger-collector.istio-system.svc:4318/v1/traces|
 | 7     | BUSINESS_CLASS_RATE     | 商務車廂加乘 |1.5|
 | 8     | PRICE_PER_MILE     | 一公里多少錢     |3|
-| 9     | MASTERFILE_URL     | masterfile API 位置，上 k8s 後要修改此變數為 masterfile 的 service name     |http://localhost:8080|
+| 9     | MASTERFILE_URL     | masterfile 服務位置，上 k8s 後要修改此變數為 masterfile 的 Service 名稱  |http://localhost:8080|
 
 ## 應用基本資訊
 * Health Check Endpoint
