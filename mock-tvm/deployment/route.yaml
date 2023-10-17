@@ -3,7 +3,6 @@ apiVersion: route.openshift.io/v1
 metadata:
   name: m-caj-mock-tvm
 spec:
-  host: m-caj-mock-tvm-${STUDENT_ID}.apps.cluster-zghzl.zghzl.sandbox852.opentlc.com
   to:
     kind: Service
     name: m-caj-mock-tvm
