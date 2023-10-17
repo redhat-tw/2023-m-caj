@@ -1,27 +1,49 @@
-# MockTvm
+# 前端服務
+CAJ 使用之前端
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.2.
+## Image 位置
+```
+quay.io/ske/m-caj-mock-tvm
+```
 
-## Development server
+## 環境變數
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+/src/asset/config.json 決定後端服務位置
+```
+{
+  "masterfileURL":"http://localhost:8080",
+  "reservationURL":"http://localhost:8084",
+  "scheduleURL":"http://localhost:8082"
+}
+```
 
-## Code scaffolding
+## 應用建置
+1. 建置 Artifact
+```bash=
+npm i
+npm i primeflex
+ng build
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+2. 啟動應用
+```bash=
+ng serve
+```
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## 容器化
+1. 建置容器 
+```bash=
+# http
+podman build -f Containerfile -t m-caj-mock-tvm:latest .
+```
 
-## Running unit tests
+```bash=
+# https 自簽憑證
+podman build -f Containerfile-tls -t m-caj-mock-tvm:latest .
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+2. 啟動容器
+```bash=
+podman run -p 8080:8080 m-caj-mock-tvm:latest
+```
