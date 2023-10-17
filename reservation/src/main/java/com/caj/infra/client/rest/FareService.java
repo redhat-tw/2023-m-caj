@@ -1,5 +1,6 @@
 package com.caj.infra.client.rest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,14 @@ public class FareService {
 	String fareUrl;
 	
 	
+	/**
+	 * restTemplate
+	 */
+	@Autowired
+	RestTemplate restTemplate;
+	
+	
 	public int calcuteFare(String departure,String destination,String classCode,String passengerType){
-		RestTemplate restTemplate = new RestTemplate();
 		StringBuilder stringBuilder = new StringBuilder();
 		String url = stringBuilder
 				.append(fareUrl)

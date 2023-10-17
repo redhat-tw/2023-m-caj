@@ -36,7 +36,7 @@ management:
         - prometheus
   otlp:
     tracing:
-      endpoint: ${JAEGER_URI:http://jaeger-collector.istio-system.svc:4317}
+      endpoint: ${JAEGER_URI:http://jaeger-collector.istio-system.svc:4318/v1/traces}
   tracing:
     sampling: 
       probability: 1.0

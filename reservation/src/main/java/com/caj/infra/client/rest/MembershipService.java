@@ -1,5 +1,6 @@
 package com.caj.infra.client.rest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -18,10 +19,15 @@ public class MembershipService {
 	 */
 	@Value("${caj.mebership.url}")
 	String mebershipUrl;
+	
+	/**
+	 * restTemplate
+	 */
+	@Autowired
+	RestTemplate restTemplate;
 
 	public void createExpenseRecord(String memberType, String memberId, int amt) {
 
-		RestTemplate restTemplate = new RestTemplate();
 		StringBuilder stringBuilder = new StringBuilder();
 		String url = stringBuilder.append(mebershipUrl).append("/api/v1/membership").toString();
 		log.info("call mebership api: {}", url);

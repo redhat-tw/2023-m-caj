@@ -8,6 +8,7 @@ public class MonoBackendApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MonoBackendApplication.class, args);
+
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.caj.infra.client.rest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -18,9 +19,14 @@ public class PaymentService {
 	 */
 	@Value("${caj.payment.url}")
 	String paymentUrl;
+	
+	/**
+	 * restTemplate
+	 */
+	@Autowired
+	RestTemplate restTemplate;
 
 	public void pay(String pnr, String method,int amt) {
-		RestTemplate restTemplate = new RestTemplate();
 		StringBuilder stringBuilder = new StringBuilder();
 		String url = stringBuilder.append(paymentUrl).append("/api/v1/payments").toString();
 		log.info("call payment api: {}", url);
