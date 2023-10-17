@@ -4,4 +4,4 @@ metadata:
   name: web-config
 data:
   config.json: >
-    {"masterfileURL":"https://m-caj-masterfile-${PROJEC_NAME}.apps.cluster-zghzl.zghzl.sandbox852.opentlc.com","reservationURL":"https://m-caj-reservation-${PROJEC_NAME}.apps.cluster-zghzl.zghzl.sandbox852.opentlc.com","scheduleURL":"https://m-caj-schedule-${PROJEC_NAME}.apps.cluster-zghzl.zghzl.sandbox852.opentlc.com"}
+    {"masterfileURL":"https://m-caj-masterfile-${PROJECT_NAME}.apps.cluster-zghzl.zghzl.sandbox852.opentlc.com","reservationURL":"https://m-caj-reservation-${PROJECT_NAME}.apps.cluster-zghzl.zghzl.sandbox852.opentlc.com","scheduleURL":"https://m-caj-schedule-${PROJECT_NAME}.apps.cluster-zghzl.zghzl.sandbox852.opentlc.com"}
