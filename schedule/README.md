@@ -67,3 +67,8 @@ podman build -f Containerfile -t m-caj-schedule:latest .
 ```bash=
 podman run -p 8080:8080 m-caj-m-caj-schedule:latest
 ```
+
+## 佈署於 OpenShift
+```bash=
+oc apply -f src/main/resources/openshift/
+```

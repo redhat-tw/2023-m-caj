@@ -68,3 +68,8 @@ podman build -f Containerfile -t m-caj-payment:latest .
 ```bash=
 podman run -p 8080:8080 m-caj-m-caj-payment:latest
 ```
+
+## 佈署於 OpenShift
+```bash=
+oc apply -f src/main/resources/openshift/
+```

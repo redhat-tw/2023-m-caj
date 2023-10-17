@@ -8,7 +8,7 @@ quay.io/ske/m-caj-mock-tvm
 
 ## 環境變數
 
-/src/asset/config.json 決定後端服務位置
+/src/asset/config.json 決定前端程式呼叫後端服務之所在位置，預設值如下，佈署時透過 `ConfigMap` 注入，注入方法詳見 `deployment` 資料夾
 ```
 {
   "masterfileURL":"http://localhost:8080",
@@ -46,4 +46,9 @@ podman build -f Containerfile-tls -t m-caj-mock-tvm:latest .
 2. 啟動容器
 ```bash=
 podman run -p 8080:8080 m-caj-mock-tvm:latest
+```
+
+## 佈署於 OpenShift
+```bash=
+oc apply -f deployment/
 ```
