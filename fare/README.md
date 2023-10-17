@@ -67,5 +67,5 @@ podman build -f Containerfile -t m-caj-fare:latest .
 
 2. 啟動容器
 ```bash=
-podman run -p 8080:8080 demp-app:latest
+podman run -p 8080:8080 m-caj-fare:latest
 ```
