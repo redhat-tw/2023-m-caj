@@ -16,6 +16,7 @@ Repository for 2023 Container Adoption Journey.
 | 9     | schedule     | 時刻表服務     | quay.io/ske/m-caj-schedule|
 | 10     | fare     | 票價服務     | quay.io/ske/m-caj-fare|
 | 11     | payment     | 支付服務     | quay.io/ske/m-caj-payment|
+| 12     | istio     | 練習 Service Mesh 使用的 YAML     | N/A |
 
 
 ## 服務拓墣
