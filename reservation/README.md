@@ -73,5 +73,10 @@ podman run -p 8080:8080 m-caj-m-caj-reservation:latest
 
 ## 佈署於 OpenShift
 ```bash=
+# 登入叢集
+oc login ${CLUSTER}
+# 切換專案
+oc project ${PROJECR}
+# Apply YAML
 oc apply -f src/main/resources/openshift/
 ```

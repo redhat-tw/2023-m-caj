@@ -50,5 +50,10 @@ podman run -p 8080:8080 m-caj-mock-tvm:latest
 
 ## 佈署於 OpenShift
 ```bash=
-oc apply -f deployment/
+# 登入叢集
+oc login ${CLUSTER}
+# 切換專案
+oc project ${PROJECR}
+# Apply YAML
+oc apply -f src/main/resources/openshift/
 ```
