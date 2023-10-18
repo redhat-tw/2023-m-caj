@@ -24,6 +24,9 @@ Repository for 2023 Container Adoption Journey.
 
 ![](https://hackmd.io/_uploads/rJjoNeo-T.png)
 
+## 服務操作說明
+![](https://hackmd.io/_uploads/SJqh1xaZp.gif)
+
 ## 快速佈署
 1. 切換至 Charts 目錄
 ```bash
