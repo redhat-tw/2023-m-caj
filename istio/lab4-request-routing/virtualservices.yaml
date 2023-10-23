@@ -9,15 +9,6 @@ spec:
   - ${STUDENT_ID}-caj-app.istio-gateway.apps.cluster-zghzl.zghzl.sandbox852.opentlc.com
   http:
   - match:
-    - uri:
-        prefix: /api/v1/versions
-    route:
-    - destination:
-        host: m-caj-masterfile
-        port:
-          number: 8080
-        subset: v1
-  - match:
     - headers:
         my-header:
           exact: test
@@ -29,6 +20,15 @@ spec:
         port:
           number: 8080
         subset: v2
+  - match:
+    - uri:
+        prefix: /api/v1/versions
+    route:
+    - destination:
+        host: m-caj-masterfile
+        port:
+          number: 8080
+        subset: v1
   - match:
     - uri:
         prefix: /api/v1/stations
