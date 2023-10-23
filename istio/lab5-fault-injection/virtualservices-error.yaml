@@ -18,11 +18,6 @@ spec:
           number: 8080
         subset: v1
       weight: 100
-    fault:
-      abort:
-        httpStatus: 500
-        percentage:
-          value: 100
   - match:
     - uri:
         prefix: /api/v1/stations
@@ -53,6 +48,11 @@ spec:
           number: 8080
         subset: v1
       weight: 100
+    fault:
+      abort:
+        httpStatus: 500
+        percentage:
+          value: 100
   - match:
     - uri:
         prefix: /
