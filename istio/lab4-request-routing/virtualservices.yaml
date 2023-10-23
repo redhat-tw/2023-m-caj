@@ -6,7 +6,7 @@ spec:
   gateways:
   - m-caj-istio-gateway
   hosts:
-  - speaker01-caj-app.istio-gateway.apps.cluster-zghzl.zghzl.sandbox852.opentlc.com
+  - ${STUDENT_ID}-caj-app.istio-gateway.apps.cluster-zghzl.zghzl.sandbox852.opentlc.com
   http:
   - match:
     - uri:
