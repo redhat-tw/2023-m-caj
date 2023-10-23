@@ -1,9 +1,9 @@
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
 metadata:
-  name: m-caj-masterfile
+  name: m-caj-payment
 spec:
-  host: m-caj-masterfile
+  host: m-caj-payment
   subsets:
   - labels:
       version: v1

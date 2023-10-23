@@ -8,7 +8,7 @@ spec:
   http:
   - fault:
       delay:
-        fixedDelay: 1s
+        fixedDelay: 5s
         percentage:
           value: 100
     route:
@@ -16,16 +16,64 @@ spec:
         host: m-caj-payment
         subset: v1
 ---
-apiVersion: networking.istio.io/v1alpha3
+apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  name: m-caj-reservation
+  name: m-caj-virtual-service
 spec:
+  gateways:
+  - m-caj-istio-gateway
   hosts:
-  - m-caj-reservation
+  - ${STUDENT_ID}-caj-app.istio-gateway.apps.cluster-zghzl.zghzl.sandbox852.opentlc.com
   http:
-  - route:
+  - match:
+    - uri:
+        prefix: /api/v1/versions
+    route:
+    - destination:
+        host: m-caj-masterfile
+        port:
+          number: 8080
+        subset: v1
+      weight: 100
+  - match:
+    - uri:
+        prefix: /api/v1/stations
+    route:
+    - destination:
+        host: m-caj-masterfile
+        port:
+          number: 8080
+        subset: v1
+      weight: 100
+  - match:
+    - uri:
+        prefix: /api/v1/schedules
+    route:
+    - destination:
+        host: m-caj-schedule
+        port:
+          number: 8080
+        subset: v1
+      weight: 100
+  - match:
+    - uri:
+        prefix: /api/v1/reservations
+    route:
     - destination:
         host: m-caj-reservation
+        port:
+          number: 8080
         subset: v1
+      weight: 100
     timeout: 0.5s
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: m-caj-mock-tvm
+        port:
+          number: 8080
+        subset: v1
+      weight: 100

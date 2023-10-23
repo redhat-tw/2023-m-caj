@@ -1,83 +1,60 @@
-apiVersion: networking.istio.io/v1alpha3
+apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  name: m-caj-fare
+  name: m-caj-virtual-service
 spec:
+  gateways:
+  - m-caj-istio-gateway
   hosts:
-    - m-caj-fare
+  - ${STUDENT_ID}-caj-app.istio-gateway.apps.cluster-zghzl.zghzl.sandbox852.opentlc.com
   http:
-  - route:
-    - destination:
-        host: m-caj-fare
-        subset: v1
-      weight: 100
----
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  name: m-caj-masterfile
-spec:
-  hosts:
-    - m-caj-masterfile
-  http:
-  - route:
+  - match:
+    - uri:
+        prefix: /api/v1/versions
+    route:
     - destination:
         host: m-caj-masterfile
+        port:
+          number: 8080
         subset: v1
       weight: 100
----
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  name: m-caj-mock-tvm
-spec:
-  hosts:
-    - m-caj-mock-tvm
-  http:
-  - route:
+  - match:
+    - uri:
+        prefix: /api/v1/stations
+    route:
     - destination:
-        host: m-caj-mock-tvm
+        host: m-caj-masterfile
+        port:
+          number: 8080
         subset: v1
       weight: 100
----
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  name: m-caj-payment
-spec:
-  hosts:
-    - m-caj-payment
-  http:
-  - route:
-    - destination:
-        host: m-caj-payment
-        subset: v1
-      weight: 100
----
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  name: m-caj-reservation
-spec:
-  hosts:
-    - m-caj-reservation
-  http:
-  - route:
-    - destination:
-        host: m-caj-reservation
-        subset: v1
-      weight: 100
----
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  name: m-caj-schedule
-spec:
-  hosts:
-    - m-caj-schedule
-  http:
-  - route:
+  - match:
+    - uri:
+        prefix: /api/v1/schedules
+    route:
     - destination:
         host: m-caj-schedule
+        port:
+          number: 8080
+        subset: v1
+      weight: 100
+  - match:
+    - uri:
+        prefix: /api/v1/reservations
+    route:
+    - destination:
+        host: m-caj-reservation
+        port:
+          number: 8080
+        subset: v1
+      weight: 100
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: m-caj-mock-tvm
+        port:
+          number: 8080
         subset: v1
       weight: 100
