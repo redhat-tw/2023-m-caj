@@ -1,9 +1,9 @@
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
 metadata:
-  name: caj-web
+  name: m-caj-fare
 spec:
-  host: caj-web
+  host: m-caj-fare
   subsets:
   - labels:
       version: v1
@@ -12,9 +12,9 @@ spec:
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
 metadata:
-  name: caj-gateway
+  name: m-caj-masterfile
 spec:
-  host: caj-gateway
+  host: m-caj-masterfile
   subsets:
   - labels:
       version: v1
@@ -23,9 +23,9 @@ spec:
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
 metadata:
-  name: caj-fare
+  name: m-caj-mock-tvm
 spec:
-  host: caj-fare
+  host: m-caj-mock-tvm
   subsets:
   - labels:
       version: v1
@@ -34,9 +34,9 @@ spec:
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
 metadata:
-  name: caj-master-file
+  name: m-caj-payment
 spec:
-  host: caj-master-file
+  host: m-caj-payment
   subsets:
   - labels:
       version: v1
@@ -45,9 +45,20 @@ spec:
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
 metadata:
-  name: caj-schedule
+  name: m-caj-reservation
 spec:
-  host: caj-schedule
+  host: m-caj-reservation
+  subsets:
+  - labels:
+      version: v1
+    name: v1
+---
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: m-caj-schedule
+spec:
+  host: m-caj-schedule
   subsets:
   - labels:
       version: v1

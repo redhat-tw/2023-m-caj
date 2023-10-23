@@ -1,69 +1,83 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: caj-web
+  name: m-caj-fare
 spec:
   hosts:
-    - caj-web
+    - m-caj-fare
   http:
   - route:
     - destination:
-        host: caj-web
+        host: m-caj-fare
         subset: v1
       weight: 100
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: caj-gateway
+  name: m-caj-masterfile
 spec:
   hosts:
-    - caj-gateway
+    - m-caj-masterfile
   http:
   - route:
     - destination:
-        host: caj-gateway
+        host: m-caj-masterfile
         subset: v1
       weight: 100
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: caj-fare
+  name: m-caj-mock-tvm
 spec:
   hosts:
-    - caj-fare
+    - m-caj-mock-tvm
   http:
   - route:
     - destination:
-        host: caj-fare
+        host: m-caj-mock-tvm
         subset: v1
       weight: 100
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: caj-master-file
+  name: m-caj-payment
 spec:
   hosts:
-    - caj-master-file
+    - m-caj-payment
   http:
   - route:
     - destination:
-        host: caj-master-file
+        host: m-caj-payment
         subset: v1
       weight: 100
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: caj-schedule
+  name: m-caj-reservation
 spec:
   hosts:
-    - caj-schedule
+    - m-caj-reservation
   http:
   - route:
     - destination:
-        host: caj-schedule
+        host: m-caj-reservation
+        subset: v1
+      weight: 100
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: m-caj-schedule
+spec:
+  hosts:
+    - m-caj-schedule
+  http:
+  - route:
+    - destination:
+        host: m-caj-schedule
         subset: v1
       weight: 100
