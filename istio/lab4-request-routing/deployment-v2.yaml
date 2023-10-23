@@ -1,29 +1,31 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: caj-master-file-v2
+  name: m-caj-masterfile-v2
   labels:
-    app: caj-master-file
+    app: m-caj-masterfile
     version: v2
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: caj-master-file
+      app: m-caj-masterfile
       version: v2
   template:
     metadata:
+      creationTimestamp: null
+      labels:
+        app: m-caj-masterfile
+        version: v2
       annotations:
         sidecar.istio.io/inject: 'true'
-      labels:
-        app: caj-master-file
-        version: v2
     spec:
       containers:
-        - name: caj-master-file
-          image: 'docker.io/d0ck3rj3ff/caj-master-file:latest'
+        - name: m-caj-masterfile
+          image: 'quay.io/ske/m-caj-masterfile:latest'
           ports:
-            - containerPort: 8080
+            - name: http
+              containerPort: 8080
               protocol: TCP
           env:
             - name: DB_DIALECT
@@ -51,5 +53,5 @@ spec:
                 secretKeyRef:
                   name: db-secret
                   key: DB_PXD
-            - name: WEB_TITTLE
-              value: Day2 CAJ v2
+            - name: RELEASE_NO
+              value: 2.0.0

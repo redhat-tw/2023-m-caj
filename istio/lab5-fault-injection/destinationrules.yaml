@@ -1,9 +1,9 @@
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
 metadata:
-  name: caj-master-file
+  name: m-caj-masterfile
 spec:
-  host: caj-master-file
+  host: m-caj-masterfile
   subsets:
   - labels:
       version: v1

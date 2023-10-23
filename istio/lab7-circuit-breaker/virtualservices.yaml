@@ -1,13 +1,13 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: caj-master-file
+  name: m-caj-masterfile
 spec:
   hosts:
-    - caj-master-file
+    - m-caj-masterfile
   http:
   - route:
     - destination:
-        host: caj-master-file
+        host: m-caj-masterfile
         subset: v1
       weight: 100
