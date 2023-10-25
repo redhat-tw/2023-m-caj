@@ -1,0 +1,14 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: npm-install
+spec:
+  workspaces:
+  - name: source
+  steps:
+    - name: install
+      image: image-registry.openshift-image-registry.svc:5000/openshift/nodejs:16-ubi8
+      command: ["/bin/bash", "-c"]
+      args:
+      - npm install
+      workingDir: /workspace/source

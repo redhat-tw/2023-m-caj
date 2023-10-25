@@ -1,0 +1,75 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: npm-test-and-build
+spec:
+  workspaces:
+  - name: shared-workspace
+  params:
+  - name: git-url
+    type: string
+    description: url of the git repo for the code of deployment
+  - name: git-revision
+    type: string
+    description: revision to be used from repo of the code for deployment
+    default: master
+  tasks:
+  - name: get-build-id
+    taskRef:
+      name: generate-build-id
+      kind: Task
+    params:
+    - name: project
+      value: nuxt
+  - name: fetch-source-code
+    taskRef:
+      name: git-clone
+      kind: ClusterTask
+    workspaces:
+    - name: output
+      workspace: shared-workspace
+    params:
+    - name: url
+      value: $(params.git-url)
+    - name: subdirectory
+      value: ""
+    - name: deleteExisting
+      value: "true"
+    - name: revision
+      value: $(params.git-revision)
+  - name: npm-install
+    taskRef:
+      name: npm-install
+      kind: Task
+    workspaces:
+    - name: source
+      workspace: shared-workspace
+    runAfter:
+    - fetch-source-code
+    - get-build-id
+  - name: npm-tests
+    retries: 3
+    taskRef:
+      name: npm-tests
+      kind: Task
+    workspaces:
+    - name: source
+      workspace: shared-workspace
+    runAfter:
+    - npm-install
+  - name: npm-build
+    taskRef:
+      name: npm-build
+      kind: Task
+    workspaces:
+    - name: source
+      workspace: shared-workspace
+    runAfter:
+    - npm-tests
+  finally:
+  - name: cleanup
+    taskRef:
+      name: cleanup-workspace
+    workspaces:
+    - name: source
+      workspace: shared-workspace

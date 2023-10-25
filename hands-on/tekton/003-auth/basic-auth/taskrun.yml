@@ -1,0 +1,29 @@
+apiVersion: tekton.dev/v1
+kind: TaskRun
+metadata:
+  generateName: dind-build-push-private-
+spec:
+  serviceAccountName: pipeline
+  taskRef:
+    name: dind-build-push
+  params:
+    - name: git-url
+      value: https://github.com/kairen/docker-build-push.git
+    - name: git-revision
+      value: main
+    - name: registry
+      value: quay.io
+    - name: repository
+      value: kbai/docker-build-push
+    - name: tag
+      value: v0.1.0
+  workspaces:
+  - name: source
+    volumeClaimTemplate:
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+        storageClassName: gp2-csi
