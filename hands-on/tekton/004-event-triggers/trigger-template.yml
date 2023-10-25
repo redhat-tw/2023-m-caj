@@ -1,0 +1,43 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerTemplate
+metadata:
+  name: dind-build-push
+spec:
+  params:
+  - name: git-url
+    description: The git repository url
+  - name: git-revision
+    description: The git revision
+    default: main
+  - name: git-repo-fullname
+    description: The full name of the git repo
+  resourcetemplates:
+  - apiVersion: tekton.dev/v1
+    kind: TaskRun
+    metadata:
+      generateName: dind-build-push-
+    spec:
+      serviceAccountName: pipeline
+      taskRef:
+        name: dind-build-push
+      params:
+      - name: git-url
+        value: $(tt.params.git-url)
+      - name: git-revision
+        value: $(tt.params.git-revision)
+      - name: registry
+        value: quay.io  
+      - name: repository
+        value: kbai/docker-build-push
+      - name: tag
+        value: $(tt.params.git-revision)
+      workspaces:
+      - name: shared-workspace
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi
+          storageClassName: gp2-csi
