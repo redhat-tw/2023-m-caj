@@ -3,7 +3,7 @@ kind: ServiceAccount
 metadata:
  name: pipeline
 secrets:
-- name: github-auth
-- name: quay-auth
+- name: github-basic-auth
+- name: quay-basic-auth
 imagePullSecrets:
-- name: quay-auth
+- name: quay-basic-auth

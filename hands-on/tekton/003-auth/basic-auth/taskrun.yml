@@ -18,7 +18,7 @@ spec:
     - name: tag
       value: v0.1.0
   workspaces:
-  - name: shared-workspace
+  - name: source
     volumeClaimTemplate:
       spec:
         accessModes:
