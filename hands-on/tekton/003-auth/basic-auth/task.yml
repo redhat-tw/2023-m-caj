@@ -31,9 +31,11 @@ spec:
     script: |
       #!/usr/bin/env sh
 
-      git clone $(params.git-url) -b $(params.git-revision) source-codes
+      git clone $(params.git-url) source-codes
       cd source-codes/
       ls -la
+
+      git reset --hard $(params.git-revision)
     workingDir: /workspace/source
   - name: build-and-push
     image: image-registry.openshift-image-registry.svc:5000/openshift/docker:dind
