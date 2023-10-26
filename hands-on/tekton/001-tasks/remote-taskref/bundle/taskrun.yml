@@ -1,0 +1,14 @@
+apiVersion: tekton.dev/v1
+kind: TaskRun
+metadata:
+  generateName: taskrun-refer-bundle-
+spec:
+  taskRef:
+    resolver: bundles
+    params:
+    - name: bundle
+      value: quay.io/kbai/tekton-bundle:v0.1.0
+    - name: name
+      value: hello-world-task
+    - name: kind
+      value: Task

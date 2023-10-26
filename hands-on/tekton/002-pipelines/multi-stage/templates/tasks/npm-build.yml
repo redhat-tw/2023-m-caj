@@ -1,0 +1,14 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: npm-build
+spec:
+  workspaces:
+  - name: source
+  steps:
+    - name: build
+      image: image-registry.openshift-image-registry.svc:5000/openshift/nodejs:16-ubi8
+      command: ["/bin/bash", "-c"]
+      args:
+      - npm run build
+      workingDir: /workspace/source

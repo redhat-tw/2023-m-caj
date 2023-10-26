@@ -1,0 +1,20 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: npm-tests
+spec:
+  workspaces:
+  - name: source
+  steps:
+    - name: lint
+      image: image-registry.openshift-image-registry.svc:5000/openshift/nodejs:16-ubi8
+      command: ["/bin/bash", "-c"]
+      args:
+        - npm run lint
+      workingDir: /workspace/source
+    - name: test
+      image: image-registry.openshift-image-registry.svc:5000/openshift/nodejs:16-ubi8
+      command: ["/bin/bash", "-c"]
+      args:
+        - npm run test
+      workingDir: /workspace/source

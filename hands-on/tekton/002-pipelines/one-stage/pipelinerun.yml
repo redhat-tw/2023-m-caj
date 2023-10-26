@@ -1,0 +1,26 @@
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  generateName: npm-all-in-one-pr-
+spec:
+  pipelineRef:
+    name: npm-all-in-one
+  params:
+  - name: git-url
+    value: https://github.com/cdbkr/nuxt.git
+  - name: git-revision
+    value: master
+  taskRunTemplate: 
+    podTemplate:
+      securityContext:
+        runAsUser: 0
+  workspaces:
+  - name: shared-workspace
+    volumeClaimTemplate:
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+        storageClassName: gp2-csi
