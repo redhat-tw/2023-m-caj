@@ -44,8 +44,6 @@ spec:
       value: '1'
     - name: DOCKER_CERT_PATH
       value: /certs/client
-    - name: "DOCKER_CONFIG"
-      value: "/tekton/home/.docker/"
     script: |
       #!/usr/bin/env sh
 
@@ -57,6 +55,7 @@ spec:
 
       # ...then run/push it!
       docker run $(params.registry)/$(params.repository):$(params.tag)
+
       docker push $(params.registry)/$(params.repository):$(params.tag)
     volumeMounts:
       - mountPath: /certs/client
