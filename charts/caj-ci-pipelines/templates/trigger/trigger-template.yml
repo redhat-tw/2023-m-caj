@@ -17,7 +17,6 @@ spec:
     metadata:
       generateName: {{ template "caj-ci-pipelines.fullname" . }}-pr-
     spec:
-      serviceAccountName: {{ .Values.serviceAccount.name }}
       pipelineRef:
         name: {{ template "caj-ci-pipelines.fullname" . }}-pipeline
       taskRunTemplate: 
@@ -37,7 +36,7 @@ spec:
         value: "{{ .Values.registry.repository }}" 
       - name: imageTag
         value: $(tt.params.gitRevision)
-      - name: sonarProjectkey
+      - name: sonarProjectKey
         value: "{{ .Values.sonar.projectKey }}" 
       - name: sonarProjectName
         value: "{{ .Values.sonar.projectName }}" 
