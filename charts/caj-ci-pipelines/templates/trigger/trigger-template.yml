@@ -1,0 +1,51 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerTemplate
+metadata:
+  name: {{ template "caj-ci-pipelines.fullname" . }}-trigger-template
+spec:
+  params:
+  - name: gitURL
+    description: The git repository url
+  - name: gitRevision
+    description: The git revision
+    default: main
+  - name: git-repo-fullname
+    description: The full name of the git repo
+  resourcetemplates:
+  - apiVersion: tekton.dev/v1
+    kind: PipelineRun
+    metadata:
+      generateName: {{ template "caj-ci-pipelines.fullname" . }}-pr-
+    spec:
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+      pipelineRef:
+        name: {{ template "caj-ci-pipelines.fullname" . }}-pipeline
+      taskRunTemplate: 
+        podTemplate:
+          securityContext:
+            runAsUser: 0
+      params:
+      - name: appName
+        value: "{{ .Values.appName }}" 
+      - name: gitURL
+        value: $(tt.params.gitURL)
+      - name: gitRevision
+        value: $(tt.params.gitRevision)
+      - name: registryURL
+        value: "{{ .Values.registry.url }}" 
+      - name: imageRepo
+        value: "{{ .Values.registry.repository }}" 
+      - name: imageTag
+        value: $(tt.params.gitRevision)
+      - name: sonarProjectkey
+        value: "{{ .Values.sonar.projectKey }}" 
+      - name: sonarProjectName
+        value: "{{ .Values.sonar.projectName }}" 
+      - name: sonarURL
+        value: "{{ .Values.sonar.hostURL }}" 
+      - name: sonarToken
+        value: "{{ .Values.sonar.token }}" 
+      {{- with .Values.workspaces }}
+      workspaces:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

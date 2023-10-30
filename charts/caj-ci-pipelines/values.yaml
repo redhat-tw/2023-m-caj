@@ -1,0 +1,45 @@
+nameOverride: ""
+fullnameOverride: caj-ci
+
+# Basic Config
+studentId: speaker01
+project: speaker01-green
+clusterAppsDomain: apps.cluster-w97m7.w97m7.sandbox753.opentlc.com
+appName: "masterfile"
+
+# Secret configs
+serviceAccount:
+  name: pipeline
+git:
+  url: https://github.com
+  username: "user"
+  accessToken: "user123"
+
+registry:
+  url: quay.io
+  repository: "user/masterfile"
+  username: "user"
+  accessToken: "user1234"
+
+# Trigger configs
+trigger:
+  webhook:
+    secretToken: "1qaz2wsx3edc"
+
+workspaces:
+- name: shared
+  volumeClaimTemplate:
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5Gi
+      storageClassName: gp2-csi
+
+# SonarQube configs
+sonar:
+  projectKey: ""
+  projectName: ""
+  hostURL: "https://sonarqube-caj-common.apps.cluster-w97m7.w97m7.sandbox753.opentlc.com"
+  token: ""

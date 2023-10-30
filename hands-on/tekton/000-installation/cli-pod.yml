@@ -19,7 +19,7 @@ spec:
     securityContext:
       runAsUser: 0
     volumeMounts:
-    - mountPath: "/opt/pipeline"
+    - mountPath: "/opt/caj"
       name: pipeline-data
   restartPolicy: Always
   tolerations:

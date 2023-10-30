@@ -1,0 +1,27 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: mvn-builds
+spec:
+  workspaces:
+  - name: source
+  params:
+  - name: appName
+    type: string
+    default: ""
+  steps:
+    - name: build
+      image: image-registry.openshift-image-registry.svc:5000/openshift/ubi8-openjdk-17:1.12
+      env:
+      - name: MAVEN_OPTS
+        value: "-Dmaven.repo.local=$(workspaces.source.path)/.m2/repository"
+      script: |
+        #!/usr/bin/env bash
+
+        if [ ! -z "$(params.appName)" ]; then
+          cd $(params.appName)/
+        fi
+
+        mvn clean package -Dmaven.repo.local='$(workspaces.source.path)/.m2/repository'
+        ls target/
+      workingDir: $(workspaces.source.path)

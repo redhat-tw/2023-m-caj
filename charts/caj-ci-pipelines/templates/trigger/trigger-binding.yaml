@@ -1,0 +1,14 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerBinding
+metadata:
+  name: {{ template "caj-ci-pipelines.fullname" . }}-trigger-binding
+spec:
+  params:
+  - name: gitURL
+    value: $(body.repository.url)
+  - name: gitRepoName
+    value: $(body.repository.name)
+  - name: gitRepoFullname
+    value: $(body.repository.full_name)
+  - name: gitRevision
+    value: $(body.head_commit.id)

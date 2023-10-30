@@ -1,0 +1,118 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: {{ template "caj-ci-pipelines.fullname" . }}-pipeline
+spec:
+  workspaces:
+  - name: shared
+  params:
+  - name: appName
+    type: string
+    default: ""
+  - name: gitURL
+    type: string
+    description: url of the git repo for the code of deployment
+  - name: gitRevision
+    type: string
+    description: revision to be used from repo of the code for deployment
+  - name: imageRepo
+    description: Repository name for Docker.io/Quay.io
+    type: string
+  - name: imageTag
+    description: Image tag
+    type: string
+  - name: registryURL
+    description: Registry URL
+    type: string
+    default: 'quay.io'
+  - name: sonarProjectKey
+    type: string
+  - name: sonarProjectName
+    type: string
+  - name: sonarURL
+    type: string
+  - name: sonarToken
+    type: string
+  tasks:
+  - name: get-build-id
+    taskRef:
+      name: generate-build-id
+      kind: Task
+    params:
+    - name: project
+      value: $(params.appName)
+  - name: fetch-source-code
+    taskRef:
+      name: git-clone
+      kind: ClusterTask
+    workspaces:
+    - name: output
+      workspace: shared
+    params:
+    - name: url
+      value: $(params.gitURL)
+    - name: subdirectory
+      value: ""
+    - name: deleteExisting
+      value: "true"
+    - name: revision
+      value: $(params.gitRevision)
+  - name: mvn-tests
+    retries: 3
+    taskRef:
+      name: mvn-tests
+      kind: Task
+    params:
+    - name: appName
+      value: $(params.appName)
+    - name: sonarProjectKey
+      value: $(params.sonarProjectKey)
+    - name: sonarProjectName
+      value: $(params.sonarProjectName)
+    - name: sonarURL
+      value: $(params.sonarURL)
+    - name: sonarToken
+      value: $(params.sonarToken)
+    workspaces:
+    - name: source
+      workspace: shared
+    runAfter:
+    - fetch-source-code
+    - get-build-id
+  - name: mvn-builds
+    taskRef:
+      name: mvn-builds
+      kind: Task
+    params:
+    - name: appName
+      value: $(params.appName)
+    workspaces:
+    - name: source
+      workspace: shared
+    runAfter:
+    - mvn-tests
+  - name: image-build-scan-push
+    taskRef:
+      name: image-build-scan-push
+      kind: Task
+    params:
+    - name: appName
+      value: $(params.appName)
+    - name: registryURL
+      value: $(params.registryURL)
+    - name: imageRepo
+      value: $(params.imageRepo)
+    - name: imageTag
+      value: $(params.imageTag)
+    workspaces:
+    - name: source
+      workspace: shared
+    runAfter:
+    - mvn-builds
+  finally:
+  - name: cleanup
+    taskRef:
+      name: cleanup-workspace
+    workspaces:
+    - name: source
+      workspace: shared
