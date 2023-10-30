@@ -1,0 +1,22 @@
+fullnameOverride: mock-tvm
+
+# Basic Config
+studentId: speaker01
+project: speaker01-green
+argoProject: student
+clusterAppsDomain: apps.cluster-w97m7.w97m7.sandbox753.opentlc.com
+
+cluster:
+  server: https://kubernetes.default.svc
+
+source:
+  repoURL: https://github.com/redhat-tw/2023-m-caj-config
+  path: charts/caj-apps
+  targetRevision: main
+
+helm:
+  parameters:
+  - name: version
+    value: v0.1.0
+  valueFiles:
+  - ../../envs/prod/values.yaml
