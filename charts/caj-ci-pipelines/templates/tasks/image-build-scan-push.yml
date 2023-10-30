@@ -1,0 +1,105 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: image-build-scan-push
+spec:
+  workspaces:
+  - name: source
+  params:
+  - name: appName
+    type: string
+  - name: imageRepo
+    description: Repository name for Docker.io/Quay.io
+    type: string
+  - name: imageTag
+    description: Image tag
+    type: string
+  - name: registryURL
+    description: Registry URL
+    type: string
+    default: 'quay.io'
+  - name: trivyVersion
+    description: Version for Trivy CLI
+    type: string
+    default: 'v0.46.1'
+  steps:
+  - name: image-build
+    image: image-registry.openshift-image-registry.svc:5000/openshift/docker:dind
+    env:
+    - name: DOCKER_HOST
+      value: tcp://localhost:2376
+    - name: DOCKER_TLS_VERIFY
+      value: '1'
+    - name: DOCKER_CERT_PATH
+      value: /certs/client
+    script: |
+      #!/usr/bin/env sh
+      set -eux
+      if [ ! -z "$(params.appName)" ]; then
+        cd $(params.appName)/
+      fi
+      # build image from Dockerfile
+      docker build -t $(params.registryURL)/$(params.imageRepo):$(params.imageTag) .
+      docker images
+    volumeMounts:
+      - mountPath: /certs/client
+        name: dind-certs
+    workingDir: $(workspaces.source.path)
+  - name: image-scan
+    image: image-registry.openshift-image-registry.svc:5000/openshift/docker:dind
+    env:
+    - name: DOCKER_HOST
+      value: tcp://localhost:2376
+    - name: DOCKER_TLS_VERIFY
+      value: '1'
+    - name: DOCKER_CERT_PATH
+      value: /certs/client
+    script: |
+      #!/usr/bin/env sh
+      set -eux
+      wget https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh
+      sh install.sh -b /usr/local/bin $(params.trivyVersion)
+      trivy image $(params.registryURL)/$(params.imageRepo):$(params.imageTag)
+    volumeMounts:
+      - mountPath: /certs/client
+        name: dind-certs
+    workingDir: $(workspaces.source.path)
+  - name: image-push
+    image: image-registry.openshift-image-registry.svc:5000/openshift/docker:dind
+    env:
+    - name: DOCKER_HOST
+      value: tcp://localhost:2376
+    - name: DOCKER_TLS_VERIFY
+      value: '1'
+    - name: DOCKER_CERT_PATH
+      value: /certs/client
+    script: |
+      #!/usr/bin/env sh
+      set -eux
+      docker push $(params.registryURL)/$(params.imageRepo):$(params.imageTag)
+    volumeMounts:
+      - mountPath: /certs/client
+        name: dind-certs
+    workingDir: $(workspaces.source.path)
+  sidecars:
+    - image: image-registry.openshift-image-registry.svc:5000/openshift/docker:dind
+      name: server
+      args:
+        - --storage-driver=vfs
+        - --userland-proxy=false
+        - --debug
+      securityContext:
+        privileged: true
+      env:
+      - name: DOCKER_TLS_CERTDIR
+        value: /certs
+      volumeMounts:
+      - mountPath: /certs/client
+        name: dind-certs
+      readinessProbe:
+        periodSeconds: 1
+        exec:
+          command: ['ls', '/certs/client/ca.pem']
+  volumes:
+  - name: dind-certs
+    emptyDir: {}

@@ -1,0 +1,20 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: Trigger
+metadata:
+  name: {{ template "caj-ci-pipelines.fullname" . }}-trigger
+spec:
+  serviceAccountName: {{ .Values.serviceAccount.name }}
+  interceptors:
+  - ref:
+      name: github
+    params:
+      - name: secretRef
+        value:
+          secretName: webhook-secret
+          secretKey: secretToken
+      - name: eventTypes
+        value: ["push"]
+  bindings:
+    - ref: {{ template "caj-ci-pipelines.fullname" . }}-trigger-binding
+  template:
+    ref: {{ template "caj-ci-pipelines.fullname" . }}-trigger-template

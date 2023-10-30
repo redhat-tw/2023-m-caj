@@ -1,0 +1,8 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: EventListener
+metadata:
+  name: {{ template "caj-ci-pipelines.fullname" . }}-event-listener
+spec:
+  serviceAccountName: {{ .Values.serviceAccount.name }}
+  triggers:
+  - triggerRef: {{ template "caj-ci-pipelines.fullname" . }}-trigger

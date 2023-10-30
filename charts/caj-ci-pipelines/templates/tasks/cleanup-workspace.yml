@@ -1,0 +1,16 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: cleanup-workspace
+spec:
+  workspaces:
+  - name: source
+  steps:
+    - name: cleanup
+      image: image-registry.openshift-image-registry.svc:5000/openshift/bash:5.2
+      script: |
+        #!/usr/bin/env bash
+        ls -la 
+        rm -rf $(workspaces.source.path)/*
+        ls -la
+      workingDir: $(workspaces.source.path)

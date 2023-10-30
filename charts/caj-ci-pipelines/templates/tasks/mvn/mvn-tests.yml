@@ -1,0 +1,37 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: mvn-tests
+spec:
+  workspaces:
+  - name: source
+  params:
+  - name: appName
+    type: string
+  - name: sonarProjectKey
+    type: string
+  - name: sonarProjectName
+    type: string
+  - name: sonarURL
+    type: string
+  - name: sonarToken
+    type: string
+  steps:
+  - name: tests
+    image: image-registry.openshift-image-registry.svc:5000/openshift/ubi8-openjdk-17:1.12
+    env:
+    - name: MAVEN_OPTS
+      value: "-Dmaven.repo.local=$(workspaces.source.path)/.m2/repository"
+    script: |
+      #!/usr/bin/env bash
+
+      if [ ! -z "$(params.appName)" ]; then
+        cd $(params.appName)/
+      fi
+      
+      mvn clean verify sonar:sonar \
+        -Dsonar.projectKey='$(params.sonarProjectKey)' \
+        -Dsonar.projectName='$(params.sonarProjectName)' \
+        -Dsonar.host.url='$(params.sonarURL)' \
+        -Dsonar.login='$(params.sonarToken)'
+    workingDir: $(workspaces.source.path)
