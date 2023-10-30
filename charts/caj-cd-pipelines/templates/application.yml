@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .Values.studentId }}-{{ template "caj-cd-pipelines.fullname" . }}
+spec:
+  destination:
+    namespace: {{ .Values.project }}
+    server: {{ .Values.cluster.server }}
+  source:
+    repoURL: {{ .Values.source.repoURL }}
+    path: {{ .Values.source.path }}
+    targetRevision: {{ .Values.source.targetRevision }}
+    {{- with .Values.helm }}
+    helm:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+  project: {{ .Values.argoProject }}
