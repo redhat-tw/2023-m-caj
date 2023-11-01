@@ -1,0 +1,69 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: m-caj-masterfile
+spec:
+  podMetricsEndpoints:
+    - interval: 30s
+      path: /actuator/prometheus
+      port: http
+      scheme: http
+  selector:
+    matchLabels:
+      deployment: m-caj-masterfile
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: m-caj-fare
+spec:
+  podMetricsEndpoints:
+    - interval: 30s
+      path: /actuator/prometheus
+      port: http
+      scheme: http
+  selector:
+    matchLabels:
+      deployment: m-caj-fare
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: m-caj-payment
+spec:
+  podMetricsEndpoints:
+    - interval: 30s
+      path: /actuator/prometheus
+      port: http
+      scheme: http
+  selector:
+    matchLabels:
+      deployment: m-caj-payment
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: m-caj-reservation
+spec:
+  podMetricsEndpoints:
+    - interval: 30s
+      path: /actuator/prometheus
+      port: http
+      scheme: http
+  selector:
+    matchLabels:
+      deployment: m-caj-reservation
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: m-caj-schedule
+spec:
+  podMetricsEndpoints:
+    - interval: 30s
+      path: /actuator/prometheus
+      port: http
+      scheme: http
+  selector:
+    matchLabels:
+      deployment: m-caj-schedule

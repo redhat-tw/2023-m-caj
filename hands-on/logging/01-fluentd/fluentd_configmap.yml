@@ -1,0 +1,32 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: fluentd
+data:
+  fluent.conf: |
+    <source>
+      @type forward
+      port 24224
+      bind 0.0.0.0
+      tag ${STUDENT_ID}
+    </source>
+    <filter ${STUDENT_ID}>
+      @type parser
+      <parse>
+        @type json
+      </parse>
+      key_name message
+    </filter>
+    <match ${STUDENT_ID}>
+      @type elasticsearch
+      host quickstart-es-http.caj-common.svc.cluster.local
+      port 9200
+      logstash_format true
+      user elastic
+      password C3co51qBBcSi02R06Jhz8i94
+      ssl_verify false
+      default_elasticsearch_version 8
+      scheme https
+      index_name fluentd.${STUDENT_ID}.%Y%m%d
+    </match>
+

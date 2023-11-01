@@ -1,0 +1,23 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: '${PROJECT_NAME}-alert'
+spec:
+  groups:
+    - name: m-caj-alert
+      rules:
+        - alert: TargetDownAlert
+          annotations:
+            summary: '{{ $labels.deployment }} in {{ $labels.namespace }} namespace is down'
+          expr: 'kube_deployment_status_replicas_available{namespace="${PROJECT_NAME}"} == 0'
+          for: 5s
+          labels:
+            severity: Critical
+        - alert: CpuUsageAlert
+          annotations:
+            summary: ' {{ $labels.pod }} in {{ $labels.namespace }} cup is greater than 50%'
+          expr: >-
+            process_cpu_usage{namespace="${PROJECT_NAME}"} >0.50
+          for: 5s
+          labels:
+            severity: Warning

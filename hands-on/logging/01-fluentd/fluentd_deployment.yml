@@ -1,0 +1,31 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: fluentd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fluentd
+  template:
+    metadata:
+      labels:
+        app: fluentd
+    spec:
+      volumes:
+        - name: config-volume
+          configMap:
+            name: fluentd
+            defaultMode: 420
+      containers:
+        - name: fluentd
+          image: 'quay.io/rh-ee-pshih/fluentd:es-1'
+          ports:
+            - containerPort: 22424
+              protocol: TCP
+            - containerPort: 22424
+              protocol: UDP
+          volumeMounts:
+            - name: config-volume
+              mountPath: /fluentd/etc/fluent.conf
+              subPath: fluent.conf

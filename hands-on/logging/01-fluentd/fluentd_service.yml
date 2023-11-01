@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: fluentd
+spec:
+  ports:
+    - name: tcp
+      protocol: TCP
+      port: 24224
+      targetPort: 24224
+    - name: udp
+      protocol: UDP
+      port: 24224
+      targetPort: 24224
+  selector:
+    app: fluentd
