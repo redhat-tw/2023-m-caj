@@ -8,9 +8,6 @@ import org.springframework.web.client.RestTemplate;
 
 import com.caj.infra.client.dto.StationDTO;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Service
 public class StationService {
 
@@ -30,7 +27,6 @@ public class StationService {
 		StringBuilder stringBuilder = new StringBuilder();
 		String url = stringBuilder.append(masterfileUrl).append("/api/v1/stations/distance?departureId=")
 				.append(departureId).append("&destinationId=").append(destinationId).toString();
-		log.info("call masterfile api: {}", url);
 		ResponseEntity<StationDTO> response = restTemplate.getForEntity(url, StationDTO.class);
 		return response.getBody().getData();
 	}

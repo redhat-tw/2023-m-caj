@@ -3,6 +3,8 @@ package com.caj.application;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,12 +13,14 @@ import com.caj.domain.fare.FareService;
 import com.caj.infra.client.rest.PassengerTypeService;
 import com.caj.infra.client.rest.StationService;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Service
 public class CalculateFareApplicationService {
 
+	/**
+	 * Logger
+	 */
+	 static Logger log = LoggerFactory.getLogger("jsonLogger");	
+	
 	/**
 	 * PassengerType Service
 	 */

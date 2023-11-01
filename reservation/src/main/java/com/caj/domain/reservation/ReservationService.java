@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +13,14 @@ import com.caj.domain.reservation.vo.PassengerVo;
 import com.caj.domain.reservation.vo.ScheduleVo;
 import com.caj.infra.repository.ReservationRepositoryImpl;
 
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Service
 public class ReservationService {
+
+	/**
+	 * Logger
+	 */
+	static Logger log = LoggerFactory.getLogger("jsonLogger");
 
 	@Autowired
 	ReservationRepositoryImpl reservationRepositoryImpl;
