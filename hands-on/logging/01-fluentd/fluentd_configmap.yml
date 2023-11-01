@@ -23,7 +23,7 @@ data:
       port 9200
       logstash_format true
       user elastic
-      password C3co51qBBcSi02R06Jhz8i94
+      password FF25Jbl8LL89gO97KNr27bf7
       ssl_verify false
       default_elasticsearch_version 8
       scheme https

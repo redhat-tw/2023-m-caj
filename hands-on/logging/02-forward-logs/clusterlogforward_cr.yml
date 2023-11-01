@@ -9,40 +9,10 @@ spec:
       application:
         namespaces:
           - speaker01
-          - student01
-          - student02
-          - student03
-          - student04
-          - student05
-          - student06
-          - student07
-          - student08
-          - student09
-          - student10
-          - student11
-          - student12
-          - student13
-          - student14
-          - student15
-          - student16
-          - student17
-          - student18
-          - student19
-          - student20
-          - student21
-          - student22
-          - student23
-          - student24
-          - student25
-          - student26
-          - student27
-          - student28
-          - student29
-          - student30
   outputs:
     - name: fluentd-server
       type: fluentdForward
-      url: 'tcp://fluentd.caj-common.svc:24224'
+      url: 'tcp://fluentd.speaker01-blue.svc:24224'
   pipelines:
     - detectMultilineErrors: true
       inputRefs:
