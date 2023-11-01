@@ -10,7 +10,7 @@ spec:
           annotations:
             summary: >- 
                pod in {{ .Values.project }} namespace is down"
-          expr: 'up{namespace="{{ .Values.project }}"} == 0'
+          expr: 'kube_deployment_status_replicas_available{namespace="{{ .Values.project }}"} == 0'
           for: 5s
           labels:
             severity: Critical
