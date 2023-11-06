@@ -1,0 +1,28 @@
+apiVersion: apps/v1 
+kind: Deployment             
+metadata:                 
+  name: httpd-deployment
+  labels:
+    app: httpd
+spec:                      
+  replicas: 1
+  selector:
+    matchLabels:
+      app: httpd
+  template:
+    metadata:         
+      labels:
+        app: httpd
+    spec:                 
+      containers:
+      - name: httpd
+        image: registry.access.redhat.com/ubi8/httpd-24:latest
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "50m"
+          limits:
+            memory: "3Gi"
+            cpu: "50m"
