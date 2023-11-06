@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: custom-resourcequota
+spec:
+  hard:
+    pods: '20'
+    requests.cpu: '1'
+    requests.memory: 2.5Gi
+    limits.cpu: '5'
+    limits.memory: 15Gi
