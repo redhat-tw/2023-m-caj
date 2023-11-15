@@ -19,6 +19,7 @@ spec:
             defaultMode: 420
       containers:
         - name: fluentd
+          # Set up to your Fluentd image that has the Elasticsearch plugin installed
           image: 'quay.io/rh-ee-pshih/fluentd:es-1'
           ports:
             - containerPort: 22424
