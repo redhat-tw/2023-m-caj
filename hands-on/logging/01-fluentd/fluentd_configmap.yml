@@ -27,6 +27,11 @@ data:
       ssl_verify false
       default_elasticsearch_version 8
       scheme https
-      index_name fluentd.${STUDENT_ID}.%Y%m%d
+      # --- Todo: Modify the index name drom logstash to fluentd ---
+      #logstash_format false
+      #<buffer tag, time>
+      #  timekey 1h # chunks per hours ("3600" also available)
+      #</buffer>
+      #index_name fluentd.${tag}-%Y.%m.%d
+      #-------------------------------------------------------------
     </match>
-
